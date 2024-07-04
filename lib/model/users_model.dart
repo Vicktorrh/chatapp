@@ -5,12 +5,14 @@ class UserModel {
   final String name;
   final String email;
   final String profilePic;
+  final String bio;
 
   UserModel({
     required this.userId,
     required this.name,
     required this.email,
     required this.profilePic,
+    required this.bio,
   });
 
   Map<String, dynamic> toMap() {
@@ -26,11 +28,11 @@ class UserModel {
     if (user == null) return null;
     try {
       return UserModel(
-        userId: user['userId'],
-        name: user['name'],
-        email: user['email'],
-        profilePic: user['profilePic'],
-      );
+          userId: user['userId'],
+          name: user['name'],
+          email: user['email'],
+          profilePic: user['profilePic'],
+          bio: user['bio']);
     } catch (e) {
       return null;
     }

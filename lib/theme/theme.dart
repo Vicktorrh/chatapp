@@ -23,7 +23,7 @@ class AppTheme {
       backgroundColor: Colors.black,
       type: BottomNavigationBarType.fixed,
       unselectedItemColor: Color(0xff797C7B),
-      selectedItemColor: Color(0xff24786D),
+      selectedItemColor: Color(0xffFFFFFF),
       selectedLabelStyle: TextStyle(
         fontSize: 16,
         color: Color(0xff24786D),

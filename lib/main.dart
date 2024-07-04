@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:freshproject/apis/auth.dart';
+import 'package:freshproject/features/contacts/provider/provider.dart';
 import 'package:freshproject/features/homepage/homepage.dart';
+import 'package:freshproject/features/homepage/provider/nav_provider.dart';
 import 'package:freshproject/features/homepage/widget/button_nav.dart';
 import 'package:freshproject/features/onboarding/screen/onboarding.dart';
 import 'package:freshproject/features/sign_up/provider/sign_up_provider.dart';
@@ -25,6 +27,12 @@ void main() async {
     ),
     ChangeNotifierProvider(
       create: (_) => AuthProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (_) => NavProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (_) => ContactProvider(),
     ),
   ], child: const MyApp()));
 }

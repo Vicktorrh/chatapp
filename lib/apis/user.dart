@@ -11,11 +11,11 @@ class UserService {
       required String userId,
       required String email}) async {
     UserModel userModel = UserModel(
-      userId: userId,
-      name: name,
-      email: email,
-      profilePic: '',
-    );
+        userId: userId,
+        name: name,
+        email: email,
+        profilePic: '',
+        bio: 'Hey there!, I am now using ChatApp');
     try {
       await firebaseFirestore
           .collection('users')

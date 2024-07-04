@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freshproject/constant/app_image.dart';
+import 'package:freshproject/features/messages/messages.dart';
 import 'package:freshproject/features/splash/widget/switch_button.dart';
 import 'package:freshproject/global_widget/status_widget.dart';
 
@@ -30,7 +31,7 @@ class HomePage extends StatelessWidget {
                       )),
                   SwitchButton(),
                   const Padding(
-                    padding: EdgeInsets.only(left: 100),
+                    padding: EdgeInsets.only(left: 50),
                     child: Text(
                       'Home',
                       style: TextStyle(
@@ -78,11 +79,19 @@ class HomePage extends StatelessWidget {
                 child: ListView.builder(
                     itemCount: 20,
                     itemBuilder: (context, index) {
-                      return ChatCard(
-                        name: 'Alex Linderston',
-                        lastMessage: 'How are you doing?',
-                        imageUrl: AppImages.person2,
-                        time: DateTime.now(),
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Messages()));
+                        },
+                        child: ChatCard(
+                          name: 'Alex Linderston',
+                          lastMessage: 'How are you doing?',
+                          imageUrl: AppImages.person2,
+                          time: DateTime.now(),
+                        ),
                       );
                     })),
           ],
@@ -139,7 +148,7 @@ class ChatCard extends StatelessWidget {
           ),
           Spacer(),
           Text('2 mins ago'),
-          SizedBox(width: 20),
+          SizedBox(width: 18),
         ],
       ),
     );
