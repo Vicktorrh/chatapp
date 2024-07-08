@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:freshproject/apis/chat.dart';
 import 'package:freshproject/constant/app_image.dart';
 import 'package:freshproject/features/contacts/provider/provider.dart';
 import 'package:freshproject/global_widget/widget.dart';
@@ -127,6 +129,16 @@ class Contacts extends StatelessWidget {
                                         name: user.name,
                                         status: user.bio,
                                         imageUrl: user.profilePic,
+                                        onTap: () {
+                                          if (user.userId ==
+                                              FirebaseAuth
+                                                  .instance.currentUser?.uid) {
+                                            return;
+                                          } else {
+                                            ChatService()
+                                                .initializeChat(user.userId);
+                                          }
+                                        },
                                       );
                                     });
                               }
@@ -148,48 +160,53 @@ class ContactCard extends StatelessWidget {
   final String imageUrl;
   final String name;
   final String status;
+  final VoidCallback onTap;
   const ContactCard({
     super.key,
     required this.imageUrl,
     required this.name,
     required this.status,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: [
-          Container(
-            height: 60,
-            width: 60,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(image: NetworkImage(imageUrl))),
-          ),
-          SizedBox(width: 7),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width - 120,
-                child: Text(
-                  status,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                      color: Colors.grey, fontWeight: FontWeight.w500),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          children: [
+            Container(
+              height: 60,
+              width: 60,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(image: NetworkImage(imageUrl))),
+            ),
+            SizedBox(width: 7),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
                 ),
-              ),
-            ],
-          ),
-        ],
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 120,
+                  child: Text(
+                    status,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        color: Colors.grey, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
